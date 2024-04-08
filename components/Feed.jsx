@@ -30,7 +30,7 @@ function Feed() {
   const { promptData: allPosts, isLoading } = usePrompts();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading....</div>;
   }
 
   // useEffect(() => {
