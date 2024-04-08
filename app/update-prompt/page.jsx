@@ -29,9 +29,6 @@ const EditPrompt = () => {
         prompt: data.prompt,
         tag: data.tag,
       });
-      queryClient.invalidateQueries({
-        queryKey: "prompt",
-      });
     };
     if (promptId) getPromptDetails();
   }, [promptId, queryClient]);
@@ -53,6 +50,9 @@ const EditPrompt = () => {
 
       if (response.ok) {
         router.push("/profile");
+        queryClient.invalidateQueries({
+          queryKey: "prompt",
+        });
       }
     } catch (error) {
       console.log(error);

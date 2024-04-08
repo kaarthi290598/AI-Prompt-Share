@@ -22,9 +22,6 @@ const MyProfile = () => {
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
       setPosts(data);
-      queryClient.invalidateQueries({
-        queryKey: "prompt",
-      });
     };
     if (session?.user.id) fetchPosts();
   }, [session?.user.id, queryClient]);
@@ -41,6 +38,9 @@ const MyProfile = () => {
       try {
         await fetch(`/api/prompt/${post._id.toString()}`, {
           method: "DELETE",
+        });
+        queryClient.invalidateQueries({
+          queryKey: "prompt",
         });
       } catch {
         alert("Something went wrong");
