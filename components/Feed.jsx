@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import PromptCard from "./PromptCard";
-import { usePrompts } from "@apiServices/prompt";
+import { usePrompts } from "@apiServices/useprompt";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -20,28 +20,28 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 function Feed() {
-  //const [allPosts, setAllPosts] = useState([]);
+  const [allPosts, setAllPosts] = useState([]);
 
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
-  const { promptData: allPosts, isLoading } = usePrompts();
+  // const { promptData: allPosts, isLoading } = usePrompts();
 
-  if (isLoading) {
-    return <div>Loading....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading....</div>;
+  // }
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     const response = await fetch("/api/prompt");
-  //     const data = await response.json();
-  //     setAllPosts(data);
-  //     console.log(data);
-  //   };
-  //   fetchPosts();
-  // }, []);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch("/api/prompt");
+      const data = await response.json();
+      setAllPosts(data);
+      console.log(data);
+    };
+    fetchPosts();
+  }, []);
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
