@@ -33,13 +33,14 @@ function Feed() {
   //   return <div>Loading....</div>;
   // }
 
+  const fetchPosts = async () => {
+    const response = await fetch("/api/prompt", { cache: "no-store" });
+    const data = await response.json();
+    setAllPosts(data);
+    console.log(data);
+  };
+
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch("/api/prompt");
-      const data = await response.json();
-      setAllPosts(data);
-      console.log(data);
-    };
     fetchPosts();
   }, []);
 
