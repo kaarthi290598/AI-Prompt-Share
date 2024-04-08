@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import Profile from "@components/Profile";
+import { useQueryClient } from "@tanstack/react-query";
 
 const MyProfile = () => {
   const { data: session } = useSession();
@@ -14,15 +15,19 @@ const MyProfile = () => {
   const [posts, setPosts] = useState([]);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(`/api/users/${session?.user.id}/posts`);
       const data = await response.json();
       setPosts(data);
+      queryClient.invalidateQueries({
+        queryKey: "prompt",
+      });
     };
     if (session?.user.id) fetchPosts();
-  }, [session?.user.id]);
+  }, [session?.user.id, queryClient]);
 
   const handleEdit = (post) => {
     router.push(`/update-prompt?id=${post._id}`);
