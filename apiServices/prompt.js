@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export async function getPrompts() {
-  const response = await fetch("/api/prompt");
+  const response = await fetch("/api/prompt", { cache: "no-store" });
   const data = await response.json();
   return data;
 }
