@@ -20,29 +20,29 @@ const PromptCardList = ({ data, handleTagClick }) => {
 };
 
 function Feed() {
-  const [allPosts, setAllPosts] = useState([]);
+  // const [allPosts, setAllPosts] = useState([]);
 
   // Search states
   const [searchText, setSearchText] = useState("");
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
-  // const { promptData: allPosts, isLoading } = usePrompts();
+  const { promptData: allPosts, isLoading } = usePrompts();
 
-  // if (isLoading) {
-  //   return <div>Loading....</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading....</div>;
+  }
 
-  const fetchPosts = async () => {
-    const response = await fetch("/api/prompt", { cache: "no-store" });
-    const data = await response.json();
-    setAllPosts(data);
-    console.log(data);
-  };
+  // const fetchPosts = async () => {
+  //   const response = await fetch("/api/prompt", { cache: "no-store" });
+  //   const data = await response.json();
+  //   setAllPosts(data);
+  //   console.log(data);
+  // };
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
 
   const filterPrompts = (searchtext) => {
     const regex = new RegExp(searchtext, "i"); // 'i' flag for case-insensitive search
